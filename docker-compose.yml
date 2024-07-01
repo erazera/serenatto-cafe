@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+    projetoinicial:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        networks:
+            - projetoinicial-network
+    # nginx
+    nginx:
+        container_name: projetoinicial-nginx
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - "80:80"
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/:/etc/nginx/conf.d/
+        networks:
+            - projetoinicial-network
+    mysql:
+        container_name: projetoinicial-mysql
+        image: mysql:8.0
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: projetoinicial
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_PASSWORD: password
+            MYSQL_USER: user
+        volumes:
+            - ./.docker/mysql/dbdata:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        networks:
+            - projetoinicial-network
+networks:
+    projetoinicial-network:
+        driver: bridge
+
