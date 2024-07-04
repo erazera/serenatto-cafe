@@ -10,12 +10,25 @@ main{
     height: 100vh;
 }
 
-.container-banner{
+.container-banner {
+    position: relative;
     width: 100%;
     height: 80%;
     background-image: url("../img/banner-site.jpg");
     background-position: center;
     background-repeat: no-repeat;
+    overflow: hidden; /* Ensures no overflow of the pseudo-element */
+}
+
+.container-banner::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10%; /* Start the gradient from the bottom */
+    height: 90%; /* Adjust the height to control the fade effect */
+    background: linear-gradient(to bottom, rgba(255,255,255,0), #333B1E); /* Adjust colors as needed */
+    z-index: 1; /* Ensure it's above the background image */
 }
 
 .container-texto-banner{

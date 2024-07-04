@@ -1,5 +1,8 @@
 {
     "require-dev": {
         "laravel/sail": "^1.30"
+    },
+    "require": {
+        "dompdf/dompdf": "^3.0"
     }
 }

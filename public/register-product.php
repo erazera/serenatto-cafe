@@ -1,3 +1,24 @@
+<?php
+
+    require 'src/connection.php';
+    require 'src/Model/Product.php';
+    require 'src/Repository/ProductRepository.php';
+
+    if(isset($_POST['cadastro'])){
+        $product = new Product(null, 
+            $_POST['tipo'], 
+            $_POST['nome'], 
+            $_POST['descricao'], 
+            $_POST['preco']
+
+        ); 
+
+
+        $productRepository = new ProductRepository($pdo);
+        $productRepository->create($product);
+        
+    }
+?>
 <!doctype html>
 <html lang="pt-br">
 <head>
@@ -24,8 +45,7 @@
         <img class= "ornaments" src="img/ornaments-coffee.png" alt="ornaments">
     </section>
     <section class="container-form">
-        <form action="#">
-
+        <form method="post">
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="nome" placeholder="Digite o nome do produto" required>
             <div class="container-radio">
@@ -49,7 +69,6 @@
 
             <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar produto"/>
         </form>
-    
     </section>
 </main>
 
